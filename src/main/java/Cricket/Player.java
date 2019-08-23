@@ -4,6 +4,9 @@ public class Player {
     private int careerRuns;
     private int careerWickets;
 
+    private int bowledFaced=0;
+    private int numberofBowls=0;
+
 
     private int matchRuns = 0;
 

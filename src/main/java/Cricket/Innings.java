@@ -20,6 +20,9 @@ class Innings {
     private Team battingSide;
     private Team fieldingSide;
 
+
+    private String inningResult;
+
     private enum INNINGS_STATUS {
         STARTED, FINISHED,
 
@@ -102,11 +105,16 @@ class Innings {
             overRunner.simlulateOver( this );
             overRunner.changeStrike( );
             overRunner.changeBowler( this );
+
+
             this.printScores( );
 
 
         }
         this.setInningsstatus( "FINISHED" );
+        overRunner.checkWinningConditions( this );
+
+
         this.setTargetScore( this.getBattingSide( ).getRunScored( ) );
 
 
@@ -114,9 +122,9 @@ class Innings {
 
 
     public void printScores ( ) {
+
+
         System.out.println( "\n" );
-
-
         for (Player player : this.getBattingSide( ).getPlayers( )) {
 
 
@@ -131,14 +139,22 @@ class Innings {
 
             }
             else {
-                System.out.println( player.getNAME( ) + " Did Not Bat " );
+                System.out.println(String.format(" %1$-20s  %2$-5s   ", player.getNAME( ),"Did  Not  Bat"  ));
             }
 
         }
 
-        System.out.println( this.getBattingSide( ).getNAME( ) + "  Scored " + this.getBattingSide( ).getRunScored( ) + " with " + this.getBattingSide( ).getWicketsFallen( ) + " Wickets " );
+         System.out.println(" "+ this.getBattingSide( ).getNAME( ) + "  Scored " + this.getBattingSide( ).getRunScored( ) + " with " + this.getBattingSide( ).getWicketsFallen( ) + " Wickets " );
 
 
     }
 
+
+    public String getInningResult ( ) {
+        return inningResult;
+    }
+
+    public void setInningResult ( String inningResult ) {
+        this.inningResult = inningResult;
+    }
 }

@@ -1,5 +1,7 @@
 package Cricket;
 
+import java.util.regex.MatchResult;
+
 public class Match {
     private int MatchNumber;
 
@@ -65,6 +67,18 @@ public class Match {
     }
 
 
+    public String getMatchResult ( ) {
+        return MatchResult;
+    }
+
+    public void setMatchResult ( String matchResult ) {
+        MatchResult = matchResult;
+    }
+
+    private String MatchResult;
+
+
+
     public void runFirstInning ( ) {
         firstInnings = new Innings( matchType.numberOfOvers, battingTeam, fieldingTeam, -1 );
         firstInnings.play( );
@@ -76,6 +90,7 @@ public class Match {
 
         secondInnings = new Innings( matchType.numberOfOvers, fieldingTeam, battingTeam, this.targetScore );
         secondInnings.play( );
+        this.setMatchResult( secondInnings.getInningResult() );
 
 
     }
@@ -86,8 +101,15 @@ public class Match {
     }
 
     public void setTargetScore ( ) {
-        this.targetScore = this.getFirstInnings( ).getBattingSide( ).getRunScored( );
+        this.targetScore = this.getFirstInnings( ).getBattingSide( ).getRunScored( )+1;
     }
 
+
+    public  void printResult()
+    {
+
+        System.out.println("\n  " + this.getMatchResult()+ " \n " );
+
+    }
 
 }

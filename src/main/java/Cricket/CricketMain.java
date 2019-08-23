@@ -9,7 +9,7 @@ public class CricketMain {
 
     public static void main ( String[] args ) {
 
-        MatchController matchController = new MatchController( "AUSTRALIA", "INDIA", Match.MatchType.T10 );
+        MatchController matchController = new MatchController( "AUSTRALIA", "INDIA", Match.MatchType.ODI );
         matchController.runMatch( );
 
     }

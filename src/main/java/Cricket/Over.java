@@ -3,6 +3,8 @@ package Cricket;
 import java.util.concurrent.ThreadLocalRandom;
 
 class Over {
+
+
     final static String[] bowlResults = {"0", "1", "2", "3", "4", "5", "6", "W"};
 
 
@@ -48,15 +50,7 @@ class Over {
 
 
             inning.setInningsstatus( "FINISHED" );
-            if ( inning.getTargetScore( ) >= 0 ) {
 
-                System.out.println( "Chasing Team Lost" );
-            }
-
-            else {
-
-                System.out.println( "Innings Over" );
-            }
         }
 
         else {
@@ -87,14 +81,6 @@ class Over {
         System.out.println( this.strker.getNAME( ) + " Scored " + runs );
         updateScore( inning.getBattingSide( ).getRunScored( ), inning.getBattingSide( ).getWicketsFallen( ) );
 
-        if ( inning.getTargetScore( ) >= 0 ) {
-
-
-            if ( inning.getBattingSide( ).getRunScored( ) > inning.getTargetScore( ) ) {
-                System.out.println( "Chasing team Won" );
-                inning.setInningsstatus( "FINISHED" );
-            }
-        }
 
 
     }
@@ -102,7 +88,7 @@ class Over {
     void updateScore ( int runs, int wickets ) {
 
 
-        System.out.println( String.format( "Score After this bowl is   with    %1$-5s  wickets ", wickets ) );
+        System.out.println( String.format( "Score After this bowl is   %1$-5s  with    %2$-5s  wickets ", runs,wickets ) );
 
     }
 
@@ -148,6 +134,16 @@ class Over {
                     break;
             }
 
+            if(inning.getTargetScore()>=0)
+            {
+
+                checkWinningConditions(inning);
+
+
+
+            }
+
+
 
             deliveryCount++;
 
@@ -160,6 +156,75 @@ class Over {
 
 
         }
+
+
+    }
+
+    public void checkWinningConditions ( Innings inning ) {
+
+        if(inning.getBattingSide().getWicketsFallen()>=10 )
+        {
+            if ( inning.getTargetScore( ) >= 0 ) {
+                int lossDiffernce=inning.getTargetScore()-inning.getBattingSide().getRunScored();
+                if(lossDiffernce>0)
+                {
+                    inning.setInningResult( "  Chasing Team Lost  by  "+ lossDiffernce + " runs " );
+                }
+                else if(lossDiffernce==0){
+
+                    inning.setInningResult( " Match Tied " );
+                }
+
+            }
+
+            else {
+
+                inning.setInningResult( "Innings Over" );
+            }
+
+        }
+
+
+        else{
+            if(!inning.getStatus().equals( "FINISHED" ))
+            {
+                if ( inning.getTargetScore( ) >= 0 ) {
+
+
+                if ( inning.getBattingSide( ).getRunScored( ) > inning.getTargetScore( ) ) {
+                    inning.setInningResult( " Chasing team Won  by " + (10-inning.getBattingSide( ).getWicketsFallen( ) )+ "  Wickets " );
+                    inning.setInningsstatus( "FINISHED" );
+                }
+            }
+
+
+            }
+
+            else{
+
+
+                if ( inning.getBattingSide( ).getRunScored( ) < inning.getTargetScore( ) ) {
+                    inning.setInningResult( " Chasing team Lost  by " + inning.getBattingSide( ).getWicketsFallen( ) + "  Wickets " );
+
+                }
+                 else if(inning.getBattingSide( ).getRunScored( ) == inning.getTargetScore( ))
+                {
+
+                    inning.setInningResult( " Match Tied " );
+                }
+                inning.setInningsstatus( "FINISHED" );
+
+            }
+
+
+
+
+        }
+
+
+
+
+
 
 
     }

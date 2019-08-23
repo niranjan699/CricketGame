@@ -57,6 +57,7 @@ public class MatchController {
         match.runFirstInning( );
         match.setTargetScore( );
         match.runSecondInnings( );
+        match.printResult();
 
 
     }
